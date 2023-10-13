@@ -16,7 +16,7 @@ export class CatsController {
 
   @Get(':id')
   findOne(@Param('id') id: string): string {
-    return 'this action returns #$(id) cat';
+    return `this action returns #${id} cat`;
   }
 
   @Post()
