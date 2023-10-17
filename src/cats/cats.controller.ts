@@ -4,19 +4,18 @@ import { CatsService } from './cats.service';
 import { CreateCatDto } from './dto/create-cat.dto';
 import { UpdateCatDto } from './dto/update-cat.dto';
 import { Cat } from './interfaces/cat.interface';
-
+import { TestService } from './test.services';
 
 @Controller('cats')
 export class CatsController {
-    constructor(private catsService: CatsService) {}
+  constructor(
+    private catsService: CatsService,
+    private testService: TestService,
+  ) {}
+
   @Get()
   findAll(@Req() request: Request): string {
     return 'This action returns all cats';
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string): string {
-    return `this action returns #${id} cat`;
   }
 
   @Post()
@@ -33,4 +32,19 @@ export class CatsController {
     async findAllPromise(): Promise<Cat[]> {
         return this.catsService.findAll();
     }
+  
+  @Get('hello-di')
+  getHelloUsinModuleDI(): string {
+    return this.testService.hello();
+  }
+
+  @Get('testing-param')
+  testingParam(): any {
+    return this.testService.testParams();
+  }
+
+  @Get(':id')
+  findOne(@Param('id') id: string): string {
+    return `this action returns #${id} cat`;
+  }
 }
